@@ -114,6 +114,14 @@ img.banner {
   width: 98%;
 }
 
+.activation {
+  position: absolute;
+  color: black;
+  font-size: 28px;
+  right: 111px;
+  top: 1059px;
+}
+
 .go {
   display: block;
   width: 177px;
