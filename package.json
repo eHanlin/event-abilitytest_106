@@ -20,6 +20,7 @@
     "q": "^1.5.0"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.5.2",
     "block-ui": "2.70.1",
     "fs": "0.0.1-security",
     "jquery": "1.7.2",
