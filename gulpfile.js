@@ -1,52 +1,53 @@
-var gulp = require('gulp')
-var fs = require('fs')
-var del = require('del')
-var Q = require('q')
-var util = require('gulp-template-util')
+const gulp = require('gulp')
+const fs = require('fs')
+const del = require('del')
+const Q = require('q')
+const util = require('gulp-template-util')
 
-function libTask (dest) {
-  return function () {
-    var packageJson = JSON.parse(
+let libTask = dest => {
+  return () => {
+    let packageJson = JSON.parse(
       fs.readFileSync('package.json', 'utf8').toString()
     )
     if (!packageJson.dependencies) {
       packageJson.dependencies = {}
     }
-    var webLibModules = []
+    let webLibModules = []
     for (var module in packageJson.dependencies) {
       webLibModules.push('node_modules/' + module + '/**/*')
     }
     return gulp
-      .src(webLibModules, { base: 'node_modules/' })
+      .src(webLibModules, {
+        base: 'node_modules/'
+      })
       .pipe(gulp.dest(dest))
   }
 }
 
-function copyStaticTask (dest) {
-  return function () {
+let copyStaticTask = dest => {
+  return () => {
     return gulp
       .src(
-        ['src/**/*.html', 'src/img/**/*', 'src/css/**/*.css', 'src/lib/**/*'],
-      {
-        base: 'src'
-      }
+        ['src/**/*.html', 'src/img/**/*', 'src/css/**/*.css', 'src/lib/**/*'], {
+          base: 'src'
+        }
       )
       .pipe(gulp.dest(dest))
   }
 }
 
-function cleanTask () {
+let cleanTask = () => {
   return del(['dist', ''])
 }
 
 gulp.task('lib', libTask('src/lib'))
 gulp.task('build', ['style', 'lib'])
 
-gulp.task('package', function () {
-  var deferred = Q.defer()
-  Q.fcall(function () {
+gulp.task('package', () => {
+  let deferred = Q.defer()
+  Q.fcall(() => {
     return util.logPromise(cleanTask)
-  }).then(function () {
+  }).then(() => {
     return Q.all([
       util.logStream(libTask('dist/lib')),
       util.logStream(copyStaticTask('dist'))
