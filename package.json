@@ -6,5 +6,16 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/eHanlin/event-abilitytest_106.git"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^1.7.0",
+    "del": "^3.0.0",
+    "fs": "0.0.1-security",
+    "graceful-fs": "^4.1.11",
+    "gulp": "^3.9.1",
+    "gulp-gcloud-publish": "^2.0.0",
+    "gulp-template-util": "0.0.2",
+    "path": "^0.12.7",
+    "q": "^1.5.1"
   }
 }
